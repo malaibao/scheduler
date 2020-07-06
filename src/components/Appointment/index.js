@@ -1,11 +1,16 @@
 import React from 'react';
+import Header from './Header';
 import PropTypes from 'prop-types';
 import './styles.scss';
 
 const Appointment = (props) => {
-  return <article className='appointment'></article>;
+  return (
+    <article className='appointment'>
+      <Header time={props.time} />
+    </article>
+  );
 };
 
-Appoinment.propTypes = {};
+Appointment.propTypes = {};
 
 export default Appointment;
