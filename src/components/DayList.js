@@ -18,6 +18,11 @@ function DayList(props) {
   );
 }
 
-DayList.propTypes = {};
+DayList.propTypes = {
+  name: PropTypes.string,
+  spots: PropTypes.number,
+  selected: PropTypes.bool,
+  setDay: PropTypes.func,
+};
 
 export default DayList;
