@@ -6,7 +6,7 @@ import 'components/DayListItem.scss';
 const DayListItem = (props) => {
   const dayClass = className('day-list__item', {
     'day-list__item--selected': props.selected,
-    'day-list__item--full': props.spot === 0,
+    'day-list__item--full': props.spots === 0,
   });
 
   const formatSpots = (spots) => {
