@@ -14,6 +14,8 @@ const Empty = (props) => {
   );
 };
 
-Empty.propTypes = {};
+Empty.propTypes = {
+  onAdd: PropTypes.func,
+};
 
 export default Empty;
