@@ -19,9 +19,9 @@ const Confirm = (props) => {
 };
 
 Confirm.propTypes = {
-  message: PropTypes.string,
-  onCancel: PropTypes.func,
-  onConfirm: PropTypes.func,
+  message: PropTypes.string.isRequired,
+  onCancel: PropTypes.func.isRequired,
+  onConfirm: PropTypes.func.isRequired,
 };
 
 export default Confirm;

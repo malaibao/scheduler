@@ -15,7 +15,7 @@ const Status = (props) => {
 };
 
 Status.propTypes = {
-  message: PropTypes.string,
+  message: PropTypes.string.isRequired,
 };
 
 export default Status;

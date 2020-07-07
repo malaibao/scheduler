@@ -22,7 +22,7 @@ const Appointment = (props) => {
 };
 
 Appointment.propTypes = {
-  time: PropTypes.string,
+  time: PropTypes.string.isRequired,
   interview: PropTypes.object,
 };
 

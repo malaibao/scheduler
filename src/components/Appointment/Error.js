@@ -19,8 +19,8 @@ const Error = (props) => {
 };
 
 Error.propTypes = {
-  message: PropTypes.string,
-  onClose: PropTypes.func,
+  message: PropTypes.string.isRequired,
+  onClose: PropTypes.func.isRequired,
 };
 
 export default Error;

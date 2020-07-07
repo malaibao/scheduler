@@ -50,6 +50,12 @@ const Form = (props) => {
   );
 };
 
-Form.propTypes = {};
+Form.propTypes = {
+  name: PropTypes.string,
+  interviewer: PropTypes.number,
+  interviewers: PropTypes.array.isRequired,
+  onSave: PropTypes.func.isRequired,
+  onCancel: PropTypes.func.isRequired,
+};
 
 export default Form;
