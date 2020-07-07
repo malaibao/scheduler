@@ -21,6 +21,8 @@ const Appointment = (props) => {
   );
 };
 
-Appointment.propTypes = {};
+Appointment.propTypes = {
+  interview: PropTypes.object,
+};
 
 export default Appointment;
