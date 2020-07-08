@@ -9,8 +9,7 @@
   },
 ]
 */
-
-export const getAppointmentsForDay = (state, day) => {
+const getAppointmentsForDay = (state, day) => {
   // check if days data is empty,
   if (state.days.length < 1) {
     return [];
@@ -27,3 +26,5 @@ export const getAppointmentsForDay = (state, day) => {
   const result = foundDay.appointments.map((id) => state.appointments[id]);
   return result;
 };
+
+export default getAppointmentsForDay;
