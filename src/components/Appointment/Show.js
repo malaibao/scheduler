@@ -32,9 +32,9 @@ const Show = (props) => {
 };
 
 Show.propTypes = {
-  student: PropTypes.string.isRequired,
-  interviewer: PropTypes.object.isRequired,
-  onEdit: PropTypes.func.isRequired,
+  student: PropTypes.string,
+  interviewer: PropTypes.object,
+  onEdit: PropTypes.func,
 };
 
 export default Show;
