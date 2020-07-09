@@ -9,7 +9,7 @@
   },
 ]
 */
-const getAppointmentsForDay = (state, day) => {
+export const getAppointmentsForDay = (state, day) => {
   // check if days data is empty,
   if (state.days.length < 1) {
     return [];
@@ -27,4 +27,21 @@ const getAppointmentsForDay = (state, day) => {
   return result;
 };
 
-export default getAppointmentsForDay;
+/*
+{  
+  "student": "Lydia Miller-Jones",
+  "interviewer": {  
+    "id": 1,
+    "name": "Sylvia Palmer",
+    "avatar": "https://i.imgur.com/LpaY82x.png"
+  }
+}
+*/
+export const getInterview = (state, interview) => {
+  return interview
+    ? {
+        ...interview,
+        interviewer: state.interviewers[interview.interviewer],
+      }
+    : null;
+};
