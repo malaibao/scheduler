@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Header from './Header';
 import Show from './Show';
 import Empty from './Empty';
@@ -12,22 +12,30 @@ const SHOW = 'SHOW';
 const CREATE = 'CREATE';
 
 const Appointment = (props) => {
-  const { mode, transition, back } = useVisualMode(
-    props.interview ? SHOW : EMPTY
-  );
+  const { interview, interviewers } = props;
+
+  const { mode, transition, back } = useVisualMode(interview ? SHOW : EMPTY);
+
+  useEffect(() => {
+    if (interview === null && mode === SHOW) {
+      transition(EMPTY);
+    }
+    if (interview && mode === EMPTY) {
+      transition(SHOW);
+    }
+  }, [mode, transition, interview]);
 
   return (
     <article className='appointment'>
       <Header time={props.time} />
+
+      {mode === CREATE && <Form interviewers={interviewers} onCancel={back} />}
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
-      {mode === CREATE && (
-        <Form interviewers={props.interviewers} onCancel={() => back()} />
-      )}
-      {mode === SHOW && (
+      {mode === SHOW && interview && (
         <Show
-          student={props.interview.student}
-          interviewer={props.interview.interviewer}
-          interviewers={[]}
+          student={interview.student}
+          interviewer={interview.interviewer}
+          interviewers={interviewers}
         />
       )}
     </article>
