@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import DayList from './DayList';
 import Appointment from './Appointment';
-import { getAppointmentsForDay, getInterview } from '../helpers/selectors';
+import {
+  getAppointmentsForDay,
+  getInterviewersForDay,
+  getInterview,
+} from '../helpers/selectors';
 import 'components/Application.scss';
 
 export default function Application(props) {
-  // const [days, setDays] = useState([]);
-
   const [state, setState] = useState({
     day: 'Monday',
     days: [],
@@ -31,20 +33,21 @@ export default function Application(props) {
   }, []);
 
   const setDay = (day) => setState((prev) => ({ ...prev, day }));
-  // const setDays = (days) => setState((prev) => ({ ...prev, days }));
 
   const appointments = getAppointmentsForDay(state, state.day);
 
   const scheduler = appointments.map((appointment) => {
     const interview = getInterview(state, appointment.interview);
+    const interviewers = getInterviewersForDay(state, state.day);
     return (
-      <Appointment
-        key={
-          appointment.id === appointments.length - 1 ? 'last' : appointments.id
-        }
-        {...appointment}
-        interview={interview}
-      />
+      <>
+        <Appointment
+          key={appointments.id}
+          {...appointment}
+          interview={interview}
+          interviewers={interviewers}
+        />
+      </>
     );
   });
 
@@ -68,6 +71,7 @@ export default function Application(props) {
       </section>
       <section className='schedule'>
         {appointments.length > 0 && scheduler}
+        <Appointment key='last' time='5pm' />
       </section>
     </main>
   );
