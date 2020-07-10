@@ -3,6 +3,7 @@ import Header from './Header';
 import Show from './Show';
 import Empty from './Empty';
 import Form from './Form';
+import Status from './Status';
 import useVisualMode from '../../hooks/useVisualMode';
 import PropTypes from 'prop-types';
 import './styles.scss';
@@ -10,6 +11,7 @@ import './styles.scss';
 const EMPTY = 'EMPTY';
 const SHOW = 'SHOW';
 const CREATE = 'CREATE';
+const SAVING = 'SAVING';
 
 const Appointment = ({ id, time, interview, interviewers, bookInterview }) => {
   // const { interview, interviewers } = props;
@@ -31,8 +33,10 @@ const Appointment = ({ id, time, interview, interviewers, bookInterview }) => {
       interviewer,
     };
 
-    bookInterview(id, newInterview);
-    transition(SHOW);
+    transition(SAVING);
+    bookInterview(id, newInterview).then(() => {
+      transition(SHOW);
+    });
   };
 
   return (
@@ -50,6 +54,7 @@ const Appointment = ({ id, time, interview, interviewers, bookInterview }) => {
           interviewers={interviewers}
         />
       )}
+      {mode === SAVING && <Status message='Saving' />}
     </article>
   );
 };
