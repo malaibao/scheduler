@@ -12,8 +12,16 @@ const EMPTY = 'EMPTY';
 const SHOW = 'SHOW';
 const CREATE = 'CREATE';
 const SAVING = 'SAVING';
+const DELETING = 'DELETING';
 
-const Appointment = ({ id, time, interview, interviewers, bookInterview }) => {
+const Appointment = ({
+  id,
+  time,
+  interview,
+  interviewers,
+  bookInterview,
+  cancelInterview,
+}) => {
   // const { interview, interviewers } = props;
 
   const { mode, transition, back } = useVisualMode(interview ? SHOW : EMPTY);
@@ -39,6 +47,13 @@ const Appointment = ({ id, time, interview, interviewers, bookInterview }) => {
     });
   };
 
+  const deleteAppointment = () => {
+    transition(DELETING);
+    cancelInterview(id).then(() => {
+      transition(EMPTY);
+    });
+  };
+
   return (
     <article className='appointment'>
       <Header time={time} />
@@ -52,9 +67,11 @@ const Appointment = ({ id, time, interview, interviewers, bookInterview }) => {
           student={interview.student}
           interviewer={interview.interviewer}
           interviewers={interviewers}
+          onDelete={deleteAppointment}
         />
       )}
       {mode === SAVING && <Status message='Saving' />}
+      {mode === DELETING && <Status message='DELETING' />}
     </article>
   );
 };
