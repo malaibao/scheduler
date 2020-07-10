@@ -4,6 +4,7 @@ import Show from './Show';
 import Empty from './Empty';
 import Form from './Form';
 import Status from './Status';
+import Confirm from './Confirm';
 import useVisualMode from '../../hooks/useVisualMode';
 import PropTypes from 'prop-types';
 import './styles.scss';
@@ -13,6 +14,7 @@ const SHOW = 'SHOW';
 const CREATE = 'CREATE';
 const SAVING = 'SAVING';
 const DELETING = 'DELETING';
+const CONFIRM = 'CONFIRM';
 
 const Appointment = ({
   id,
@@ -67,11 +69,18 @@ const Appointment = ({
           student={interview.student}
           interviewer={interview.interviewer}
           interviewers={interviewers}
-          onDelete={deleteAppointment}
+          onDelete={() => transition(CONFIRM)}
         />
       )}
       {mode === SAVING && <Status message='Saving' />}
       {mode === DELETING && <Status message='DELETING' />}
+      {mode === CONFIRM && (
+        <Confirm
+          message='Delete the appointment?'
+          onCancel={back}
+          onConfirm={deleteAppointment}
+        />
+      )}
     </article>
   );
 };
