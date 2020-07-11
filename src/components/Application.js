@@ -12,6 +12,8 @@ import {
 import 'components/Application.scss';
 
 export default function Application(props) {
+
+  // use custom hook useApplicationData
   const {
     state,
     setDay,
