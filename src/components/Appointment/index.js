@@ -15,6 +15,7 @@ const CREATE = 'CREATE';
 const SAVING = 'SAVING';
 const DELETING = 'DELETING';
 const CONFIRM = 'CONFIRM';
+const EDIT = 'EDIT';
 
 const Appointment = ({
   id,
@@ -24,8 +25,6 @@ const Appointment = ({
   bookInterview,
   cancelInterview,
 }) => {
-  // const { interview, interviewers } = props;
-
   const { mode, transition, back } = useVisualMode(interview ? SHOW : EMPTY);
 
   useEffect(() => {
@@ -60,6 +59,15 @@ const Appointment = ({
     <article className='appointment'>
       <Header time={time} />
 
+      {mode === EDIT && (
+        <Form
+          name={interview.student}
+          interviewer={interview.interviewer.id}
+          interviewers={interviewers}
+          onCancel={back}
+          onSave={save}
+        />
+      )}
       {mode === CREATE && (
         <Form interviewers={interviewers} onCancel={back} onSave={save} />
       )}
@@ -69,9 +77,11 @@ const Appointment = ({
           student={interview.student}
           interviewer={interview.interviewer}
           interviewers={interviewers}
+          onEdit={() => transition(EDIT)}
           onDelete={() => transition(CONFIRM)}
         />
       )}
+
       {mode === SAVING && <Status message='Saving' />}
       {mode === DELETING && <Status message='DELETING' />}
       {mode === CONFIRM && (
