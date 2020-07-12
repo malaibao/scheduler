@@ -107,6 +107,8 @@ export default function useApplicationData() {
 }
 
 /*
+Code before useReducer
+
 export default function useApplicationData() {
   const [state, setState] = useState({
     day: 'Monday',
