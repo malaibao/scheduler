@@ -3,19 +3,19 @@ import PropTypes from 'prop-types';
 import './InterviewerList.scss';
 import InterviewerListItem from './InterviewerListItem';
 
-function InterviewerList(props) {
+function InterviewerList({ interviewers, value, onChange }) {
   return (
     <section className='interviewers'>
       <h4 className='interviewers__header text--light'>Interviewer</h4>
       <ul className='interviewers__list'>
-        {props.interviewers &&
-          props.interviewers.map((interviewer) => (
+        {interviewers &&
+          interviewers.map((interviewer) => (
             <InterviewerListItem
               key={interviewer.id}
               name={interviewer.name}
               avatar={interviewer.avatar}
-              selected={interviewer.id === props.value}
-              setInterviewer={(event) => props.onChange(interviewer.id)}
+              selected={interviewer.id === value}
+              setInterviewer={(event) => onChange(interviewer.id)}
             />
           ))}
       </ul>
@@ -23,6 +23,10 @@ function InterviewerList(props) {
   );
 }
 
-InterviewerList.propTypes = {};
+InterviewerList.propTypes = {
+  value: PropTypes.number.isRequired,
+  interviewers: PropTypes.array.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
 
 export default InterviewerList;

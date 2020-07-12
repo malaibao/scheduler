@@ -3,22 +3,23 @@ import className from 'classnames';
 import 'components/InterviewerListItem.scss';
 import PropTypes from 'prop-types';
 
-function InterviewerListItem(props) {
+function InterviewerListItem({ name, avatar, selected, setInterviewer }) {
   const styleClass = className('interviewers__item', {
-    'interviewers__item--selected': props.selected,
+    'interviewers__item--selected': selected,
   });
   return (
-    <li className={styleClass} onClick={props.setInterviewer}>
-      <img
-        className='interviewers__item-image'
-        src={props.avatar}
-        alt={props.name}
-      />
-      {props.selected && props.name}
+    <li className={styleClass} onClick={setInterviewer}>
+      <img className='interviewers__item-image' src={avatar} alt={name} />
+      {selected && name}
     </li>
   );
 }
 
-InterviewerListItem.propTypes = {};
+InterviewerListItem.propTypes = {
+  name: PropTypes.string,
+  avatar: PropTypes.string,
+  selected: PropTypes.bool,
+  setInterviewer: PropTypes.func,
+};
 
 export default InterviewerListItem;
