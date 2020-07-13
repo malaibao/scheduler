@@ -24,8 +24,8 @@ function InterviewerList({ interviewers, value, onChange }) {
 }
 
 InterviewerList.propTypes = {
-  value: PropTypes.number.isRequired,
-  interviewers: PropTypes.array.isRequired,
+  value: PropTypes.number,
+  interviewers: PropTypes.array,
   onChange: PropTypes.func.isRequired,
 };
 
