@@ -67,7 +67,7 @@ const Appointment = ({
   };
 
   return (
-    <article className='appointment'>
+    <article className='appointment' data-testid='appointment'>
       <Header time={time} />
 
       {mode === EDIT && (
