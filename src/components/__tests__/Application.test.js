@@ -11,6 +11,8 @@ import {
   getByPlaceholderText,
   prettyDOM,
   queryByText,
+  queryByAltText,
+  queryAllByAltText,
 } from '@testing-library/react';
 
 import Application from 'components/Application';
@@ -29,7 +31,7 @@ describe('Application', () => {
   });
 
   //  ByLabelText, ByPlaceholderText, ByText, ByDisplayValue, ByAltText, ByTitle and ByRole
-  it('loads data, books an interview and reduces the spots remaining for the first day by 1', async () => {
+  xit('loads data, books an interview and reduces the spots remaining for the first day by 1', async () => {
     const { container, debug } = render(<Application />);
 
     await waitForElement(() => getByText(container, 'Archie Cohen'));
@@ -58,4 +60,41 @@ describe('Application', () => {
     // console.log(prettyDOM(day));
     // debug();
   });
+
+  xit('load data, cancels an interview and increases the spots remaining for Monday by 1', async () => {
+    const { container, debug } = render(<Application />);
+
+    await waitForElement(() => getByText(container, 'Archie Cohen'));
+
+    const appointment = getAllByTestId(
+      container,
+      'appointment'
+    ).find((appointment) => queryByText(appointment, 'Archie Cohen'));
+
+    fireEvent.click(queryByAltText(appointment, 'Delete'));
+
+    expect(
+      getByText(
+        appointment,
+        'Are you sure you would like to delete the appointment?'
+      )
+    ).toBeInTheDocument();
+
+    fireEvent.click(queryByText(appointment, 'Confirm'));
+
+    expect(queryByText(appointment, 'Deleting')).toBeInTheDocument();
+
+    await waitForElement(() => queryAllByAltText(container, 'Add'));
+
+    const day = getAllByTestId(container, 'day').find((day) =>
+      queryByText(day, 'Monday')
+    );
+    expect(queryByText(day, /2 spots remaining/i)).toBeInTheDocument();
+  });
+
+  xit('load, data, edits an interview and keeps the spots remaining for Monday the same', () => {});
+
+  xit('shows the save error when failing to save an appointment', () => {});
+
+  xit('shows the delete error when failing to delete an existing appointment', () => {});
 });
