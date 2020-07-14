@@ -94,10 +94,10 @@ const Appointment = ({
       )}
 
       {mode === SAVING && <Status message='Saving' />}
-      {mode === DELETING && <Status message='DELETING' />}
+      {mode === DELETING && <Status message='Deleting' />}
       {mode === CONFIRM && (
         <Confirm
-          message='Delete the appointment?'
+          message='Are you sure you would like to delete the appointment?'
           onCancel={back}
           onConfirm={deleteAppointment}
         />
