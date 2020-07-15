@@ -107,7 +107,7 @@ describe('Application', () => {
 
     fireEvent.click(queryByAltText(appointment, 'Edit'));
 
-    // Edit interviewee name
+    // Edit interviewee's name
     fireEvent.change(queryByDisplayValue(appointment, 'Archie Cohen'), {
       target: { value: 'Lydia Miller-Jones' },
     });
