@@ -21,8 +21,9 @@ function reducer(state, action) {
       const dayId = getDayId(action.id);
       if (action.subtype === 'CANCEL_INTERVIEW') {
         newState.days[dayId].spots = newState.days[dayId].spots + 1;
-      }
-      if (action.subtype === 'BOOK_INTERVIEW') {
+        // } else if (action.subtype === 'BOOK_INTERVIEW') {
+      } else {
+        // BOOK_INTERVIEW
         const length = newState.days[dayId].appointments.length;
         newState.days[dayId].spots = updateSpot(
           newState.days[dayId].appointments[0],
@@ -42,6 +43,7 @@ function reducer(state, action) {
 
 const updateSpot = (minId, maxId, appointments) => {
   let spots = 0;
+
   for (let id = minId; id <= maxId; id++) {
     if (!appointments[id].interview) {
       spots++;
