@@ -13,6 +13,8 @@ import {
   queryByText,
   queryByAltText,
   queryAllByAltText,
+  queryAllByTestId,
+  queryByDisplayValue,
 } from '@testing-library/react';
 
 import Application from 'components/Application';
@@ -92,7 +94,38 @@ describe('Application', () => {
     expect(queryByText(day, /2 spots remaining/i)).toBeInTheDocument();
   });
 
-  xit('load, data, edits an interview and keeps the spots remaining for Monday the same', () => {});
+  it('load, data, edits an interview and keeps the spots remaining for Monday the same', async () => {
+    const { container, debug } = render(<Application />);
+
+    await waitForElement(() => queryByText(container, 'Archie Cohen'));
+
+    const appointment = getAllByTestId(
+      container,
+      'appointment'
+    ).find((appointment) => queryByText(appointment, 'Archie Cohen'));
+
+    fireEvent.click(queryByAltText(appointment, 'Edit'));
+
+    // Edit interviewee name
+    fireEvent.change(queryByDisplayValue(appointment, 'Archie Cohen'), {
+      target: { value: 'Lydia Miller-Jones' },
+    });
+    // edit interviewer
+    fireEvent.click(queryByAltText(appointment, 'Tori Malcolm'));
+    debug();
+
+    fireEvent.click(queryByText(appointment, 'Save'));
+
+    expect(queryByText(appointment, 'Saving')).toBeInTheDocument();
+
+    await waitForElement(() => queryByText(appointment, 'Lydia Miller-Jones'));
+
+    const day = queryAllByTestId(container, 'day').find((day) =>
+      queryByText(day, 'Monday')
+    );
+
+    expect(queryByText(day, /1 spot remaining/i)).toBeInTheDocument();
+  });
 
   xit('shows the save error when failing to save an appointment', () => {});
 
