@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 import {
   render,
@@ -22,7 +23,7 @@ import Application from 'components/Application';
 afterEach(cleanup);
 
 describe('Application', () => {
-  xit('changes the schedule when a new day is selected', async () => {
+  it('changes the schedule when a new day is selected', async () => {
     const { getByText } = render(<Application />);
 
     await waitForElement(() => getByText('Monday'));
@@ -33,7 +34,7 @@ describe('Application', () => {
   });
 
   //  ByLabelText, ByPlaceholderText, ByText, ByDisplayValue, ByAltText, ByTitle and ByRole
-  xit('loads data, books an interview and reduces the spots remaining for the first day by 1', async () => {
+  it('loads data, books an interview and reduces the spots remaining for the first day by 1', async () => {
     const { container, debug } = render(<Application />);
 
     await waitForElement(() => getByText(container, 'Archie Cohen'));
@@ -63,7 +64,7 @@ describe('Application', () => {
     // debug();
   });
 
-  xit('load data, cancels an interview and increases the spots remaining for Monday by 1', async () => {
+  it('load data, cancels an interview and increases the spots remaining for Monday by 1', async () => {
     const { container, debug } = render(<Application />);
 
     await waitForElement(() => getByText(container, 'Archie Cohen'));
@@ -91,7 +92,7 @@ describe('Application', () => {
     const day = getAllByTestId(container, 'day').find((day) =>
       queryByText(day, 'Monday')
     );
-    expect(queryByText(day, /2 spots remaining/i)).toBeInTheDocument();
+    expect(getByText(day, /1 spot remaining/i)).toBeInTheDocument();
   });
 
   it('load, data, edits an interview and keeps the spots remaining for Monday the same', async () => {
@@ -112,7 +113,6 @@ describe('Application', () => {
     });
     // edit interviewer
     fireEvent.click(queryByAltText(appointment, 'Tori Malcolm'));
-    debug();
 
     fireEvent.click(queryByText(appointment, 'Save'));
 
@@ -127,7 +127,11 @@ describe('Application', () => {
     expect(queryByText(day, /1 spot remaining/i)).toBeInTheDocument();
   });
 
-  xit('shows the save error when failing to save an appointment', () => {});
+  it('shows the save error when failing to save an appointment', () => {
+    axios.put.mockRejectedValueOnce();
+  });
 
-  xit('shows the delete error when failing to delete an existing appointment', () => {});
+  it('shows the delete error when failing to delete an existing appointment', () => {
+    axios.delete.mockRejectedValueOnce();
+  });
 });
