@@ -1,4 +1,4 @@
-$font-family: "Source Sans Pro", sans-serif;
+$font-family: 'Source Sans Pro', sans-serif;
 
 $active-opacity: 1;
 $inactive-opacity: 0.15;
@@ -6,12 +6,13 @@ $inactive-opacity: 0.15;
 $white: #fff;
 $black: #000;
 
-$dark-background: #222f3e;
+// $dark-background: #222f3e;
+$dark-background: #44244b;
 
 $weeks-colors: #54a0ff, #48dbfb, #1dd1a1, #5f27cd;
-$booked-color: #54a0ff;
-$danger-color: #ee5253;
+$booked-color: #643e6f;
+$danger-color: rgb(248, 0, 0);
 $error-color: #ff9f43;
-$confirm-color: #10ac84;
+$confirm-color: #00e700;
 
 $spacing: 2rem;
