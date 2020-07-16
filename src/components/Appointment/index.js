@@ -1,4 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+
 import Header from './Header';
 import Show from './Show';
 import Empty from './Empty';
@@ -6,19 +8,21 @@ import Form from './Form';
 import Status from './Status';
 import Confirm from './Confirm';
 import Error from './Error';
-import useVisualMode from '../../hooks/useVisualMode';
-import PropTypes from 'prop-types';
-import './styles.scss';
 
-const EMPTY = 'EMPTY';
-const SHOW = 'SHOW';
-const CREATE = 'CREATE';
-const SAVING = 'SAVING';
-const DELETING = 'DELETING';
-const CONFIRM = 'CONFIRM';
-const EDIT = 'EDIT';
-const ERROR_SAVE = 'ERROR_SAVE';
-const ERROR_DELETE = 'ERROR_DELETE';
+import useVisualMode from '../../hooks/useVisualMode';
+import {
+  EMPTY,
+  SHOW,
+  CREATE,
+  EDIT,
+  DELETING,
+  SAVING,
+  CONFIRM,
+  ERROR_SAVE,
+  ERROR_DELETE,
+} from '../../actions/types';
+
+import './styles.scss';
 
 const Appointment = ({
   id,
@@ -29,15 +33,6 @@ const Appointment = ({
   cancelInterview,
 }) => {
   const { mode, transition, back } = useVisualMode(interview ? SHOW : EMPTY);
-
-  // useEffect(() => {
-  //   if (!interview && mode === SHOW) {
-  //     transition(EMPTY);
-  //   }
-  //   if (interview && mode === EMPTY) {
-  //     transition(SHOW);
-  //   }
-  // }, [mode, transition, interview]);
 
   const save = (name, interviewer) => {
     const newInterview = {
@@ -118,3 +113,18 @@ Appointment.propTypes = {
 };
 
 export default Appointment;
+
+/* 
+  I had this code when I first implemted the custom hook useVisualMode
+  the app needed this code to work that time, somehow it is not needed now
+  it is now only kept for reference
+
+  useEffect(() => {
+    if (!interview && mode === SHOW) {
+      transition(EMPTY);
+    }
+    if (interview && mode === EMPTY) {
+      transition(SHOW);
+    }
+  }, [mode, transition, interview]);
+  */
