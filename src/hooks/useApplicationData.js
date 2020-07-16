@@ -21,14 +21,15 @@ function reducer(state, action) {
       const dayId = getDayId(action.id);
       if (action.subtype === 'CANCEL_INTERVIEW') {
         newState.days[dayId].spots = newState.days[dayId].spots + 1;
-        // } else if (action.subtype === 'BOOK_INTERVIEW') {
-      } else {
-        // BOOK_INTERVIEW
-        const length = newState.days[dayId].appointments.length;
-        newState.days[dayId].spots = updateSpot(
-          newState.days[dayId].appointments[0],
-          newState.days[dayId].appointments[length - 1],
-          action.appointments
+      } else if (action.subtype === 'BOOK_INTERVIEW') {
+        // Update spot remaining with reducer
+        newState.days[dayId].spots = newState.days[dayId].appointments.reduce(
+          (availableSpots, appointmentId) => {
+            return newState.appointments[appointmentId].interview
+              ? availableSpots
+              : availableSpots + 1;
+          },
+          0
         );
       }
       return newState;
@@ -40,17 +41,6 @@ function reducer(state, action) {
       );
   }
 }
-
-const updateSpot = (minId, maxId, appointments) => {
-  let spots = 0;
-
-  for (let id = minId; id <= maxId; id++) {
-    if (!appointments[id].interview) {
-      spots++;
-    }
-  }
-  return spots;
-};
 
 export default function useApplicationData() {
   const [state, dispatch] = useReducer(reducer, {
