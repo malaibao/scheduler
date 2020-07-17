@@ -37,7 +37,8 @@ Users can delete an interview
 
 ![Delete an Interview](./docs/EditAnInterview.gif)
 
-error message
+Error Message
+
 ![Error Handling](./docs/ErrorMsg.gif)
 
 ## Tech Stack
